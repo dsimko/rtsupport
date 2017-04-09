@@ -8,7 +8,7 @@ import (
 
 type Channel struct {
 	Id   string `json:"id" gorethink:"id,omitempty"`
-	Name string `json:"name" gorethink: "name"`
+	Name string `json:"name" gorethink:"name"`
 }
 
 type User struct {
@@ -26,6 +26,8 @@ func main() {
 	}
 	router := NewRouter(session)
 	router.Handle("channel add", addChannel)
+	router.Handle("channel subscribe", subscribeChannel)
+	router.Handle("channel unsubscribe", unsubscribeChannel)
 	http.Handle("/", router)
 	http.ListenAndServe(":4000", nil)
 }
